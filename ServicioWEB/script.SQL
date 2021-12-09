@@ -19,11 +19,11 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`DNI`, `Nombre`, `Clave`, `Tfno`) VALUES
-('1A', 'Fernando', '123', '38942923'),
+(('1A', 'Fernando', '123', '38942923'),
 ('2B', 'Inma', '123', '999999'),
 ('3C', 'JoseAlberto', '', '38942923'),
 ('4D', 'Joaquien', '', '38942925'),
-('5E', 'Marcelo', '', '2389392')
+('5E', 'Marcelo', '', '2389392'));
 
 -- --------------------------------------------------------
 
@@ -59,9 +59,9 @@ CREATE TABLE `rolesasignados` (
 --
 
 INSERT INTO `rolesasignados` (`idra`, `DNIRol`, `idRol`) VALUES
-(1, '1A', 1),
+((1, '1A', 1),
 (2, '1A', 2),
-(4, '2B', 1),
+(4, '2B', 1));
 
 
 --
@@ -93,7 +93,8 @@ COMMIT;
 -------------------------------------------------
 CREATE TABLE `aulas` (
   `IdAula` varchar(10) NOT NULL,
-  `Nombre` varchar(20) NOT NULL
+  `Nombre` varchar(20) NOT NULL,
+  `Descripcion` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `aulas`
@@ -103,7 +104,7 @@ ALTER TABLE `aulas`
   CREATE TABLE `dispositivos` (
   `IdDispositivo` varchar(10) NOT NULL,
   `IdAula` varchar(20) NOT NULL,
-  `Tipo` varchar(20) NOT NULL,
+  `Tipo` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `dispositivos`
@@ -115,28 +116,31 @@ CREATE TABLE `ordenadores` (
   `IdOrdenador` varchar(10) NOT NULL,
   `Cpu` varchar(20) NOT NULL,
   `Ram` varchar(20) NOT NULL,
-  `Disco` varchar(20) NOT NULL,
+  `Disco` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `ordenadores`
-  ADD PRIMARY KEY (`IdOrdenador`);
+  ADD PRIMARY KEY (`IdOrdenador`),
+  ADD FOREIGN KEY (`IdOrdenador`) REFERENCES dispositivos(IdDispositivo);
 
 -------------------------------------------------
   CREATE TABLE `monitores` (
-  `Idmonitor` varchar(10) NOT NULL,
+  `IdMonitor` varchar(10) NOT NULL,
   `Pulgadas` varchar(20) NOT NULL,
-  `Marca` varchar(20) NOT NULL,
+  `Marca` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `monitores`
-  ADD PRIMARY KEY (`Idmonitor`);
+  ADD PRIMARY KEY (`Idmonitor`),
+  ADD FOREIGN KEY (`Idmonitor`) REFERENCES dispositivos(IdDispositivo);
 
 -------------------------------------------------
 
    CREATE TABLE `impresoras` (
   `IdImpresora` varchar(10) NOT NULL,
-  `Marca` varchar(20) NOT NULL,
+  `Marca` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `impresoras`
-  ADD PRIMARY KEY (`IdImpresora`);
+  ADD PRIMARY KEY (`IdImpresora`),
+  ADD FOREIGN KEY (`IdImpresora`) REFERENCES dispositivos(IdDispositivo);

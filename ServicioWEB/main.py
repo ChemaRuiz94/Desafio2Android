@@ -14,7 +14,7 @@ api = Api(app)
 def hello():
     return 'Inventario'
 
-@app.route("/listado", methods=['GET']) 
+@app.route("/personas", methods=['GET']) 
 def getPersonas(): 
     listaPersonas = conex.seleccionarTodos()
     print(listaPersonas)
@@ -28,6 +28,20 @@ def getPersonas():
     print(resp)
     return resp
 
+@app.route("/personas/<nombre>", methods=['GET']) #aquí especificamos la ruta para el endpoint.
+def getPersona(nombre): #aquí declaramos una función que se llamará cuando se realice una request a esa url
+   
+    listaPersonas = conex.getPersonaByUserName(nombre)
+    print(jsonify(listaPersonas))
+    if (len(listaPersonas) != 0):
+        resp = jsonify(listaPersonas)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'No se han extraido datos.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    print(resp)
+    return resp
 
 if __name__ == '__main__':
     #app.run(debug=True)

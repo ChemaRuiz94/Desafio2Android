@@ -49,6 +49,16 @@ class Conexion:
             # print("Ocurrió un error al insertar: clave duplicada.", e)
             return -1
 
+    def getPersonaByUserName(self,nombre):
+        try:
+            self.conectar()
+            cursor = self._conexion.cursor()
+            cursor.execute("SELECT * FROM personas WHERE Nombre = %s", (nombre))
+            self._conexion.commit()
+            self.cerrarConexion()
+            return 0
+        except (pymysql.err.IntegrityError) as e:
+            return -1
 
     def seleccionarTodos(self):
         try:
@@ -62,3 +72,4 @@ class Conexion:
                 return r
         except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
             return []
+

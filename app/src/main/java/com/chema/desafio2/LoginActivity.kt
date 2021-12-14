@@ -65,34 +65,36 @@ class LoginActivity : AppCompatActivity() {
 
         val us = Persona(
             "",
-            txt_user_name.text.toString().trim(),
-            txt_pwd.text.toString().trim(),
+            "${nom}",
+            "${pwd}",
             ""
         )
         val request = ServiceBuilder.buildService(PersonaApi::class.java)
         val call = request.loginUsuario(us)
 
-        //var intentV1 = Intent(this, Bienvenido::class.java)
+        var intentV1 = Intent(this, MainActivity::class.java)
 
 
-        call.enqueue(object : Callback<Persona> {
+        call.enqueue(object : Callback<MutableList<Persona>> {
 
             override fun onResponse(
-                call: Call<Persona>,
-                response: Response<Persona>
+                call: Call<MutableList<Persona>>,
+                response: Response<MutableList<Persona>>
             ) {
 
                 if (response.code() == 200) {
                     var per = response.body()
+                    var nombre = per!![0].Nombre
 
-                    Toast.makeText(contexto, "BIEEEN", Toast.LENGTH_LONG).show()
+                    startActivity(intentV1)
+                    //Toast.makeText(contexto, "BIEEEN ${nombre}", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(contexto, "MAAAL", Toast.LENGTH_LONG).show()
                     //Toast.makeText(contexto, response.message().toString(), Toast.LENGTH_LONG).show()
                 }
             }
 
-            override fun onFailure(call: Call<Persona>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<Persona>>, t: Throwable) {
                 Toast.makeText(contexto, "Algo ha fallado en la conexión.", Toast.LENGTH_LONG).show()
             }
         })

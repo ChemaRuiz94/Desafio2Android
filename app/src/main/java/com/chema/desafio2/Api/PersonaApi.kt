@@ -20,5 +20,5 @@ interface PersonaApi {
 
     @Headers("Content-Type:application/json")
     @POST("login")
-    fun loginUsuario(@Body info: Persona) : Call<Persona>
+    fun loginUsuario(@Body info: Persona) : Call<MutableList<Persona>>
 }

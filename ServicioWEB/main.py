@@ -71,6 +71,7 @@ def addPersona():
 @app.route("/login", methods=["POST"])
 def login():
     data = request.json
+    print("CHEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     print(data)
     respuesta = conex.login(data['Clave'],data['Nombre'])
     print(data)
@@ -78,11 +79,13 @@ def login():
     if (respuesta):
         resp = jsonify(respuesta)
         resp.status_code = 200
+        print("CHEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 200 ")
     else:
         respuesta = {'message': 'Login incorrecto.'}
         resp = jsonify(respuesta)
         resp.status_code = 400
-    
+        print("CHEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 400 ")
+    print(resp)
     return resp
 
 

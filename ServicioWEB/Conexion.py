@@ -60,6 +60,29 @@ class Conexion:
         except (pymysql.err.IntegrityError) as e:
             return -1
 
+
+    def login(self, clave, nombre):
+        try:
+            self.conectar()
+            with self._conexion.cursor() as cursor:
+                # En este caso no necesitamos limpiar ningún dato
+                cursor.execute("SELECT DNI, Nombre, Clave, Tfno FROM personas WHERE Clave = %s AND Nombre = %s", (clave,nombre))
+                
+                r = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
+               
+                #print(r)
+                if (r):
+                   
+                    print(r)
+                    self.cerrarConexion()
+                    return r
+                else:
+                    self.cerrarConexion()
+                    return []
+            
+        except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+            return []
+##############################################################
     def seleccionarTodos(self):
         try:
             self.conectar()

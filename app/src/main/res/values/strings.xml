@@ -4,4 +4,7 @@
     <string name="pwd">Contraseña</string>
     <string name="login">Login</string>
     <string name="signup">SignUp</string>
+    <string name="dni">DNI</string>
+    <string name="telefono">Telefono</string>
+    <string name="aceptar">Aceptar</string>
 </resources>

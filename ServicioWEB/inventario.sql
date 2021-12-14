@@ -184,7 +184,7 @@ ALTER TABLE `ordenadores`
 -- Indices de la tabla `personas`
 --
 ALTER TABLE `personas`
-  ADD PRIMARY KEY (`DNI`);
+  ADD PRIMARY KEY (`Nombre`);
 
 ALTER TABLE `personas` ADD UNIQUE(`Nombre`);
 

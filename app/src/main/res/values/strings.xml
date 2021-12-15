@@ -7,4 +7,6 @@
     <string name="dni">DNI</string>
     <string name="telefono">Telefono</string>
     <string name="aceptar">Aceptar</string>
+    <string name="aulas">Aulas</string>
+    <string name="profesores">Profesores</string>
 </resources>

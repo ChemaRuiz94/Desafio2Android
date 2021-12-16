@@ -3,7 +3,7 @@ package com.chema.desafio2.modelo
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class Persona(@SerializedName("DNI")
+class Persona(@SerializedName("DNI")
                    val DNI: String? = null,
 
                    @SerializedName("Nombre")
@@ -13,4 +13,4 @@ data class Persona(@SerializedName("DNI")
                    val Clave: String? = null,
 
                    @SerializedName("Tfno")
-                   val Tfno: String? = null) :Serializable
+                   val Tfno: String? = null) :Serializable{}

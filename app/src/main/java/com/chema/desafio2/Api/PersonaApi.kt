@@ -21,4 +21,22 @@ interface PersonaApi {
     @Headers("Content-Type:application/json")
     @POST("login")
     fun loginUsuario(@Body info: Persona) : Call<MutableList<Persona>>
+
+    @DELETE("borrar/{nombre}")
+    fun borrarUsuario(@Path("nombre") id:String) : Call<ResponseBody>
+
+    @Headers("Content-Type:application/json")
+    @PUT("modificar")
+    fun modUsuario(@Body info: Persona) : Call<ResponseBody>
+
+
+    @Headers("Content-Type:application/json")
+    @POST("rolUsuario")
+    fun rolUsuario(@Body info: Persona) : Call<MutableList<Rol>>
+
+    @Headers("Content-Type:application/json")
+    @POST("newrol")
+    fun addNewRol(@Body info: Persona) : Call<ResponseBody>
+
+
 }

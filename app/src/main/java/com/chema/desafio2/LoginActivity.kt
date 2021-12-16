@@ -31,6 +31,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //ActualUser.actualUser = Persona("","","","")
+        ActualUser.actualUser = Persona()
+        ActualUser.modificando = false
+
         txt_user_name = findViewById(R.id.ed_txt_usuario_login)
         txt_pwd = findViewById(R.id.ed_txt_pwd_login)
 
@@ -47,6 +51,8 @@ class LoginActivity : AppCompatActivity() {
                 check_login()
             }
         }
+
+
     }
 
     fun check_campos_vacios(): Boolean{
@@ -70,6 +76,7 @@ class LoginActivity : AppCompatActivity() {
             "${pwd}",
             ""
         )
+
         val request = ServiceBuilder.buildService(PersonaApi::class.java)
         val call = request.loginUsuario(us)
 
@@ -87,15 +94,11 @@ class LoginActivity : AppCompatActivity() {
                     var p = response.body()
                     var per = p!![0] as Persona
                     ActualUser.actualUser = per
-                    Toast.makeText(contexto, "HOLA ${per.Nombre} "+ response.message().toString(), Toast.LENGTH_LONG).show()
-
-
-                    //intentV1.putExtra("usuario",per)
 
                     startActivity(intentV1)
                 } else {
 
-                    Toast.makeText(contexto, "login incorrecto "+ response.message().toString(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(contexto, "login incorrecto ", Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -104,5 +107,7 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
+
+
 
 }

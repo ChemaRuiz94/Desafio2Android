@@ -2,9 +2,11 @@ package com.chema.desafio2.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,13 +45,13 @@ class MyFragmentsAulas():Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //val bun = requireActivity().intent.extras!!
 
-        getAulas()
-        cargarRV(view)
+        getAulas(view)
+        //cargarRV(view)
     }
 
 
 
-    fun getAulas(){
+    fun getAulas(view: View){
         aulas.clear()
         val request = ServiceBuilder.buildService(AulasApi::class.java)
         val call = request.getAulas()
@@ -62,11 +64,18 @@ class MyFragmentsAulas():Fragment() {
 
                     for (post in response.body()!!) {
                         aulas.add(Aula(post.IdAula,post.Nombre,post.Descripcion))
+                        Log.d("Che",post.Nombre.toString())
                     }
+                    cargarRV(view)
+                    //Toast.makeText(context,"Aulas traidas correctamente",Toast.LENGTH_SHORT).show()
+                }else{
+
+                    Toast.makeText(context,"Fallo de al traer las aulas",Toast.LENGTH_SHORT).show()
+
                 }
             }
             override fun onFailure(call: Call<MutableList<Aula>>, t: Throwable) {
-
+                Toast.makeText(context,"Fallo de conexion",Toast.LENGTH_SHORT).show()
             }
         })
     }

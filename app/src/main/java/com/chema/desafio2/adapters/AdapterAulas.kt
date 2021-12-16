@@ -24,15 +24,11 @@ class AdapterAulas (private var context: Context,
         val item = aulas[position]
         holder.bind(item, position, this)
 
-       /*
-        holder.id.text = aulas[position].IdAula
-        holder.nombre.text = aulas[position].Nombre
-        holder.desc.text = aulas[position].Descripcion
-
+       
         holder.itemView.setOnClickListener {
             Toast.makeText(context, aulas[position].IdAula, Toast.LENGTH_SHORT).show()
         }
-        */
+
     }
     override fun getItemCount(): Int {
         return aulas.size

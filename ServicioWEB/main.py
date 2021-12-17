@@ -13,7 +13,7 @@ api = Api(app)
 @app.route('/')
 def hello():
     return 'Inventario'
-
+#------------------------------------------------------------------------------    
 @app.route("/personas", methods=['GET']) 
 def getPersonas(): 
     listaPersonas = conex.seleccionarTodos()
@@ -28,6 +28,22 @@ def getPersonas():
     print(resp)
     return resp
 
+###########################################################################
+@app.route("/aulas", methods=['GET']) 
+def getAulas(): 
+    listaAulas = conex.getAulas()
+    print(listaAulas)
+    if (len(listaAulas) != 0):
+        resp = jsonify(listaAulas)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'No se han extraido datos.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    print(resp)
+    return resp
+
+##########################################################################3
 @app.route("/personas/<nombre>", methods=['GET']) #aquí especificamos la ruta para el endpoint.
 def getPersona(nombre): #aquí declaramos una función que se llamará cuando se realice una request a esa url
    
@@ -44,6 +60,7 @@ def getPersona(nombre): #aquí declaramos una función que se llamará cuando se
     return resp
 
 
+#------------------------------------------------------------------------------
 @app.route("/registrar", methods=["POST"])
 def addPersona():
     data = request.json
@@ -63,9 +80,46 @@ def addPersona():
     
     print(resp)
     return resp 
+
+
+#------------------------------------------------------------------------------
+@app.route("/addaula", methods=["POST"])
+def addAula():
+    data = request.json
+    
+    print(data) #Desde Android nos llega en formato diccionario.
+    if (conex.insertarAula(data['IdAula'],data['Nombre'],data['NombreProfesor'],data['Descripcion'])==0):
+        respuesta = {'message': 'Ok.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'Error'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    
+    print(resp)
+    return resp 
     
     
 
+#------------------------------------------------------------------------------
+@app.route("/newrol", methods=["POST"])
+def addNewRol():
+    data = request.json
+    print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhkadjklajdkdalkfjakldjfalkdjkljadklajdlkfja")
+    print(data) #Desde Android nos llega en formato diccionario.
+    print(data['DNI'])
+    if (conex.insertarNewRol(data['Nombre'])==0):
+        respuesta = {'message': 'Ok.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'Error'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    
+    print(resp)
+    return resp 
 
 #------------------------------------------------------------------------------
 @app.route("/login", methods=["POST"])
@@ -88,6 +142,96 @@ def login():
     print(resp)
     return resp
 
+#------------------------------------------------------------------------------    
+@app.route("/borrar/<nombre>", methods=["DELETE"])
+def delPersona(nombre):
+    
+    if (conex.borrarNombre(nombre)>0):
+        respuesta = {'message': 'Ok.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'Nombre' + str(nombre) + ' no encontrado.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    print(respuesta)
+    print(resp)
+    return resp 
+
+#------------------------------------------------------------------------------    
+@app.route("/borraraula/<id>", methods=["DELETE"])
+def delAula(id):
+    
+    if (conex.borrarAula(id)>0):
+        respuesta = {'message': 'Ok.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'IdAula' + str(id) + ' no encontrado.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    print(respuesta)
+    print(resp)
+    return resp 
+
+#------------------------------------------------------------------------------    
+@app.route("/modificar", methods=["PUT"])
+def modPersona():
+    data = request.json
+    print(data) #Desde Android nos llega en formato diccionario.
+    print(data['DNI'])
+    print(data['Nombre'])
+    print(data['Clave'])
+    print(data['Tfno'])
+    if (conex.modificarPersona(data['DNI'],data['Nombre'],data['Clave'],data['Tfno']) > 0):
+        respuesta = {'message': 'Ok.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'Error al modificar.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    
+    print(resp)
+    return resp 
+
+#------------------------------------------------------------------------------    
+@app.route("/modificarAula", methods=["PUT"])
+def modAula():
+    data = request.json
+    print(data) #Desde Android nos llega en formato diccionario.
+    if (conex.modificarAula(data['IdAula'],data['Nombre'],data['NombreProfesor'],data['Descripcion']) > 0):
+        respuesta = {'message': 'Ok.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'Error al modificar.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    
+    print(resp)
+    return resp 
+
+#------------------------------------------------------------------------------
+@app.route("/rolUsuario", methods=["POST"])
+def rolUsuario():
+    data = request.json
+    #Desde Android nos llega en formato diccionario.
+    #print(data['DNI'])
+    #print(data['Clave'])
+    respuesta = conex.rolUsuario(data['Nombre'],data['Clave'])
+    print("--------------")
+    print(respuesta)
+    if (respuesta):
+        resp = jsonify(respuesta)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'Login incorrecto.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    
+    print(resp)
+    return resp 
 
 ############################################################################################
 

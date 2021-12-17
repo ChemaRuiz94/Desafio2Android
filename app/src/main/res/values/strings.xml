@@ -1,12 +1,36 @@
 <resources>
-    <string name="app_name">Desafio2</string>
+    <string name="app_name">Inventario</string>
     <string name="usuario">Usuario</string>
+    <string name="nombre">Nombre</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="profesor">Profesor</string>
     <string name="pwd">Contraseña</string>
     <string name="login">Login</string>
+    <string name="loginIncorrecot">Login incorrecto</string>
+    <string name="rolJefe">JefeDepartamento</string>
+    <string name="rolProfe">Profesor</string>
     <string name="signup">SignUp</string>
+    <string name="modificar">Modificar</string>
+    <string name="modificarPerfil">Modificar perfil de Usuario</string>
     <string name="dni">DNI</string>
     <string name="telefono">Telefono</string>
     <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
     <string name="aulas">Aulas</string>
+    <string name="new_Aula">Nueva Aula</string>
+    <string name="new_profesor">Nuevo Profesor</string>
     <string name="profesores">Profesores</string>
+    <string name="eliminarperfil">¿ELIMINAR ESTE PERFIL DE USUARIO?</string>
+    <string name="eliminarUnperfil">Eliminar perfil de Usuario</string>
+    <string name="eliminarAula">¿ELIMINAR AULA?</string>
+    <string name="preferencias">PREFERENCIAS</string>
+    <string name="cerrarSesion">Cerrar Sesion</string>
+    <string name="salirCerrarSesion">¿Salir y Cerrar Sesion?</string>
+    <string name="relleneCampos">Rellene todos los campos</string>
+    <string name="Aula">IdAula</string>
+    <string name="registroElimin">Registro eliminado con exito</string>
+    <string name="registroInserta">Registro insertado con exito</string>
+    <string name="registroModi">Registro modificado con exito</string>
+    <string name="falloBorrado">Algo ha fallado en el borrado: Nombre de usuario no encontrado</string>
+    <string name="falloConexion">Algo ha fallado en la conexión</string>
 </resources>

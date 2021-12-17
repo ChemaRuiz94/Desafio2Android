@@ -42,12 +42,10 @@ class SignUpActivity : AppCompatActivity() {
 
         if(ActualUser.modificando == true) {
 
-            user = ActualUser.actualUser
+            user = ActualUser.actualUserModif
             btn_acept.setText(getString(R.string.modificar))
             cargar_campos_mod()
         }
-
-
 
 
         btn_acept.setOnClickListener{

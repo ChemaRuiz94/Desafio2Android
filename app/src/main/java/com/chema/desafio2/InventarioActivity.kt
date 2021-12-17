@@ -54,7 +54,7 @@ class InventarioActivity : AppCompatActivity() {
         btn_new_aula = findViewById(R.id.btn_add_aula)
         flt_btn_preferences = findViewById(R.id.floatingActionButton_preferencias_inventario)
 
-        val act_user: Persona = ActualUser.actualUser
+        var act_user: Persona = ActualUser.actualUser
 
         usuario = act_user
         if(usuario != null){
@@ -64,6 +64,7 @@ class InventarioActivity : AppCompatActivity() {
 
         btn_new_aula.setOnClickListener{
             val intent = Intent(contexto,NewAulaActivity::class.java)
+            ActualUser.modificandoAula = false
             startActivity(intent)
         }
 
@@ -79,6 +80,13 @@ class InventarioActivity : AppCompatActivity() {
 
         flt_btn_preferences.setOnClickListener{
             preferences()
+        }
+
+        btn_new_prof.setOnClickListener{
+            val intent = Intent(contexto,SignUpActivity::class.java)
+            ActualUser.actualUserModif = Persona()
+            ActualUser.modificando = false
+            startActivity(intent)
         }
 
     }
@@ -107,6 +115,7 @@ class InventarioActivity : AppCompatActivity() {
                 //MODIFICAR
                 val intent = Intent(this, SignUpActivity::class.java)
                 ActualUser.modificando = true
+                ActualUser.actualUserModif = ActualUser.actualUser
                 startActivity(intent)
                 view.dismiss()
             }

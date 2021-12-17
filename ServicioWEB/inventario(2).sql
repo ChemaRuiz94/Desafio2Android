@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-12-2021 a las 14:02:59
+-- Tiempo de generación: 17-12-2021 a las 21:47:27
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -30,8 +30,18 @@ SET time_zone = "+00:00";
 CREATE TABLE `aulas` (
   `IdAula` varchar(10) NOT NULL,
   `Nombre` varchar(20) NOT NULL,
+  `NombreProfesor` varchar(20) NOT NULL,
   `Descripcion` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `aulas`
+--
+
+INSERT INTO `aulas` (`IdAula`, `Nombre`, `NombreProfesor`, `Descripcion`) VALUES
+('207', 'ASIR', 'che', 'Aula de ASIR'),
+('209', 'DAM', 'che', 'Aula de DAM'),
+('230', 'DAW', 'yo', 'ajakagsihaa');
 
 -- --------------------------------------------------------
 
@@ -99,11 +109,9 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`DNI`, `Nombre`, `Clave`, `Tfno`) VALUES
-('1A', 'Fernando', '123', '38942923'),
-('2B', 'Inma', '123', '999999'),
-('3C', 'JoseAlberto', '', '38942923'),
-('4D', 'Joaquien', '', '38942925'),
-('5E', 'Marcelo', '', '2389392');
+('12', 'che', '12', '12'),
+('x', 'x', 'x', '9'),
+('1', 'yo', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -133,7 +141,7 @@ INSERT INTO `roles` (`id`, `descripcion`) VALUES
 
 CREATE TABLE `rolesasignados` (
   `idra` int(11) NOT NULL,
-  `DNIRol` varchar(10) NOT NULL,
+  `NombreRol` varchar(20) NOT NULL,
   `idRol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -141,10 +149,14 @@ CREATE TABLE `rolesasignados` (
 -- Volcado de datos para la tabla `rolesasignados`
 --
 
-INSERT INTO `rolesasignados` (`idra`, `DNIRol`, `idRol`) VALUES
-(1, '1A', 1),
-(2, '1A', 2),
-(4, '2B', 1);
+INSERT INTO `rolesasignados` (`idra`, `NombreRol`, `idRol`) VALUES
+(1, 'che', 1),
+(2, 'che', 2),
+(87902606, 'x', 2),
+(418284476, 'y', 2),
+(619353469, 'peoe', 2),
+(664438634, 'h', 2),
+(963223076, 'yo', 2);
 
 --
 -- Índices para tablas volcadas
@@ -154,7 +166,8 @@ INSERT INTO `rolesasignados` (`idra`, `DNIRol`, `idRol`) VALUES
 -- Indices de la tabla `aulas`
 --
 ALTER TABLE `aulas`
-  ADD PRIMARY KEY (`IdAula`);
+  ADD PRIMARY KEY (`IdAula`),
+  ADD KEY `aulas_ibfk_1` (`NombreProfesor`);
 
 --
 -- Indices de la tabla `dispositivos`
@@ -186,8 +199,6 @@ ALTER TABLE `ordenadores`
 ALTER TABLE `personas`
   ADD PRIMARY KEY (`Nombre`);
 
-ALTER TABLE `personas` ADD UNIQUE(`Nombre`);
-
 --
 -- Indices de la tabla `roles`
 --
@@ -201,18 +212,14 @@ ALTER TABLE `rolesasignados`
   ADD PRIMARY KEY (`idra`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `rolesasignados`
---
-ALTER TABLE `rolesasignados`
-  MODIFY `idra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `aulas`
+--
+ALTER TABLE `aulas`
+  ADD CONSTRAINT `aulas_ibfk_1` FOREIGN KEY (`NombreProfesor`) REFERENCES `personas` (`Nombre`);
 
 --
 -- Filtros para la tabla `impresoras`

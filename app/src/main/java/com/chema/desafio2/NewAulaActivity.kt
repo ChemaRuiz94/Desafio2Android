@@ -61,7 +61,7 @@ class NewAulaActivity : AppCompatActivity() {
                     mod_aula()
                 }
             }else{
-                Toast.makeText(contexto,"Faltan campos",Toast.LENGTH_SHORT).show()
+                Toast.makeText(contexto,getString(R.string.relleneCampos),Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -88,7 +88,7 @@ class NewAulaActivity : AppCompatActivity() {
                 response: Response<ResponseBody>
             ) {
                 if (response.code() == 200) {
-                    Toast.makeText(contexto, "Registro efectuado con éxito", Toast.LENGTH_SHORT)
+                    Toast.makeText(contexto, getString(R.string.registroInserta), Toast.LENGTH_SHORT)
                         .show()
 
                     finish()
@@ -102,7 +102,7 @@ class NewAulaActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(contexto, "Algo ha fallado en la conexión.", Toast.LENGTH_LONG)
+                Toast.makeText(contexto, getString(R.string.falloConexion), Toast.LENGTH_LONG)
                     .show()
             }
         })
@@ -132,7 +132,7 @@ class NewAulaActivity : AppCompatActivity() {
             ) {
                 //Log.e("Che", response.message())
                 if (response.code() == 200) {
-                    Toast.makeText(contexto, "Registro modificado con éxito", Toast.LENGTH_SHORT)
+                    Toast.makeText(contexto, getString(R.string.registroModi), Toast.LENGTH_SHORT)
                         .show()
                     ActualUser.aulaSeleccionada = Aula()
                     ActualUser.modificandoAula = false
@@ -147,7 +147,7 @@ class NewAulaActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(contexto, "Algo ha fallado en la conexión.", Toast.LENGTH_LONG)
+                Toast.makeText(contexto, getString(R.string.falloConexion), Toast.LENGTH_LONG)
                     .show()
             }
         })
@@ -190,11 +190,11 @@ class NewAulaActivity : AppCompatActivity() {
                     }
                     cargarRV()
                 }else{
-                    Toast.makeText(contexto, "Error de conexion al traer las personas", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(contexto, "Error de conexion al traer las personas", Toast.LENGTH_SHORT).show()
                 }
             }
             override fun onFailure(call: Call<MutableList<Persona>>, t: Throwable) {
-                Toast.makeText(contexto, "Error de conexion", Toast.LENGTH_SHORT).show()
+                Toast.makeText(contexto, getString(R.string.falloConexion), Toast.LENGTH_SHORT).show()
             }
         })
 

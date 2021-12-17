@@ -10,4 +10,6 @@ object ActualUser {
 
     var modificandoAula: Boolean? = null
 
+    var rolAdmin : Boolean? = null
+
 }

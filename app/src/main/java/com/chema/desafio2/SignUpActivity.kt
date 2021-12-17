@@ -55,11 +55,10 @@ class SignUpActivity : AppCompatActivity() {
                     modificarUsuario()
 
                 }else{
-                    //aqui es donde deberia ir el check_usuario_existe()
                     registarNewUsuario()
                 }
             }else{
-                Toast.makeText(this,"Rellene todos los campos",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.relleneCampos),Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -95,7 +94,7 @@ class SignUpActivity : AppCompatActivity() {
             ) {
                 //Log.e("Che", response.message())
                 if (response.code() == 200) {
-                    Toast.makeText(contexto, "Registro modificado con éxito", Toast.LENGTH_SHORT)
+                    Toast.makeText(contexto, getString(R.string.registroModi), Toast.LENGTH_SHORT)
                         .show()
                     ActualUser.actualUser = us
                     ActualUser.modificando = false
@@ -110,7 +109,7 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(contexto, "Algo ha fallado en la conexión.", Toast.LENGTH_LONG)
+                Toast.makeText(contexto, getString(R.string.falloConexion), Toast.LENGTH_LONG)
                     .show()
             }
         })
@@ -151,7 +150,7 @@ class SignUpActivity : AppCompatActivity() {
             ) {
                 if (response.code() == 200) {
                     add_rol_new_user()
-                    Toast.makeText(contexto, "Registro efectuado con éxito", Toast.LENGTH_SHORT)
+                    Toast.makeText(contexto, getString(R.string.registroInserta), Toast.LENGTH_SHORT)
                         .show()
                     ActualUser.modificando = false
                     finish()
@@ -165,7 +164,7 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(contexto, "Algo ha fallado en la conexión.", Toast.LENGTH_LONG)
+                Toast.makeText(contexto, getString(R.string.falloConexion), Toast.LENGTH_LONG)
                     .show()
             }
         })
@@ -191,16 +190,18 @@ class SignUpActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     //Toast.makeText(contexto, "Registro efectuado con éxito", Toast.LENGTH_SHORT).show()
                 } else {
+                    /*
                     Toast.makeText(
                         contexto,
                         "Algo ha fallado en la inserción del rol",
                         Toast.LENGTH_LONG
                     ).show()
+                     */
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(contexto, "Algo ha fallado en la conexión de inserccion del rol.", Toast.LENGTH_LONG)
+                Toast.makeText(contexto, getString(R.string.falloConexion), Toast.LENGTH_LONG)
                     .show()
             }
         })

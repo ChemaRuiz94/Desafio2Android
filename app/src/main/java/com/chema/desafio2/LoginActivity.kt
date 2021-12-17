@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
         //ActualUser.actualUser = Persona("","","","")
         ActualUser.actualUser = Persona()
         ActualUser.modificando = false
+        ActualUser.rolAdmin = false
 
         txt_user_name = findViewById(R.id.ed_txt_usuario_login)
         txt_pwd = findViewById(R.id.ed_txt_pwd_login)
@@ -49,6 +50,8 @@ class LoginActivity : AppCompatActivity() {
         btn_login.setOnClickListener{
             if(check_campos_vacios()){
                 check_login()
+            }else{
+                Toast.makeText(contexto, getString(R.string.relleneCampos),Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -98,12 +101,12 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intentV1)
                 } else {
 
-                    Toast.makeText(contexto, "login incorrecto ", Toast.LENGTH_LONG).show()
+                    Toast.makeText(contexto, getString(R.string.loginIncorrecot), Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<MutableList<Persona>>, t: Throwable) {
-                Toast.makeText(contexto, "Algo ha fallado en la conexión.", Toast.LENGTH_LONG).show()
+                Toast.makeText(contexto, getString(R.string.falloConexion), Toast.LENGTH_LONG).show()
             }
         })
     }

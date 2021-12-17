@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chema.desafio2.Api.AulasApi
@@ -38,7 +39,8 @@ class InventarioActivity : AppCompatActivity() {
     lateinit var btn_new_aula: Button
     lateinit var flt_btn_preferences: FloatingActionButton
 
-    var aulas: ArrayList<Aula> = ArrayList<Aula>()
+    private var rolAdmin: Boolean = false
+
     var contexto = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,12 +57,30 @@ class InventarioActivity : AppCompatActivity() {
         flt_btn_preferences = findViewById(R.id.floatingActionButton_preferencias_inventario)
 
         var act_user: Persona = ActualUser.actualUser
+        ActualUser.modificandoAula = false
 
         usuario = act_user
+
         if(usuario != null){
             txt_nom.setText(usuario!!.Nombre)
             check_rol()
         }
+
+
+        /*
+        if(rolAdmin == false){
+            btn_new_aula.setVisibility(View.INVISIBLE);
+            btn_new_aula.setEnabled(false);
+            btn_new_prof.setVisibility(View.INVISIBLE);
+            btn_new_prof.setEnabled(false);
+        }else{
+            btn_new_aula.setVisibility(View.VISIBLE);
+            btn_new_aula.setEnabled(true);
+            btn_new_prof.setVisibility(View.VISIBLE);
+            btn_new_prof.setEnabled(true);
+        }
+         */
+
 
         btn_new_aula.setOnClickListener{
             val intent = Intent(contexto,NewAulaActivity::class.java)
@@ -109,8 +129,8 @@ class InventarioActivity : AppCompatActivity() {
 
     fun preferences(){
 
-        AlertDialog.Builder(this).setTitle("PREFERENCIAS")
-            .setPositiveButton("Modificar perfil de Usuario") { view, _ ->
+        AlertDialog.Builder(this).setTitle(getString(R.string.preferencias))
+            .setPositiveButton(getString(R.string.modificarPerfil)) { view, _ ->
 
                 //MODIFICAR
                 val intent = Intent(this, SignUpActivity::class.java)
@@ -120,20 +140,22 @@ class InventarioActivity : AppCompatActivity() {
                 view.dismiss()
             }
 
-            .setNeutralButton("Cerrar sesion") { view, _ ->
+            .setNeutralButton(getString(R.string.cerrarSesion)) { view, _ ->
 
                 //CERRAR SESION
                 ActualUser.actualUser = Persona()
+                ActualUser.modificando = false
+                ActualUser.rolAdmin = false
+
                 var myIntent = Intent(contexto,LoginActivity::class.java)
                 startActivity(myIntent)
 
 
                 view.dismiss()}
 
-            .setNegativeButton("Eliminar perfil de Usuario") { view, _ ->
+            .setNegativeButton(getString(R.string.eliminarUnperfil)) { view, _ ->
 
                 //ELIMINAR
-
                 //CERRAR SESION
                 check_delete()
                 view.dismiss()
@@ -150,6 +172,7 @@ class InventarioActivity : AppCompatActivity() {
                 delete_user(usuario.Nombre!!)
                 ActualUser.actualUser = Persona()
                 ActualUser.modificando = false
+                ActualUser.rolAdmin = false
                 var myIntent = Intent(contexto,LoginActivity::class.java)
                 startActivity(myIntent)
 
@@ -172,14 +195,14 @@ class InventarioActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 
                 if (response.code() == 200) {
-                    Toast.makeText(contexto, "Registro eliminado con éxito",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(contexto, getString(R.string.registroElimin),Toast.LENGTH_SHORT).show()
                 }
                 else {
-                    Toast.makeText(contexto, "Algo ha fallado en el borrado: Nombre de usuario no encontrado",Toast.LENGTH_LONG).show()
+                    Toast.makeText(contexto, getString(R.string.falloBorrado),Toast.LENGTH_LONG).show()
                 }
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(contexto, "Algo ha fallado en la conexión.",Toast.LENGTH_LONG).show()
+                Toast.makeText(contexto, getString(R.string.falloBorrado),Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -187,7 +210,6 @@ class InventarioActivity : AppCompatActivity() {
 
         val us = ActualUser.actualUser
         val request = ServiceBuilder.buildService(PersonaApi::class.java)
-        Log.e("Chema DANI", us.DNI.toString())
         val call = request.rolUsuario(us)
 
 
@@ -201,6 +223,12 @@ class InventarioActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     var msg = ""
                     for (post in response.body()!!) {
+                        /*
+                        if(post.descripcion!!.equals("JefeDepartamento")){
+                            ActualUser.rolAdmin = true
+                        }
+                         */
+
                         msg +=post.descripcion.toString()+"; "
 
                     }
@@ -212,17 +240,18 @@ class InventarioActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<MutableList<Rol>>, t: Throwable) {
-                Toast.makeText(contexto, "Algo ha fallado en la conexión.", Toast.LENGTH_LONG).show()
+                Toast.makeText(contexto, getString(R.string.falloConexion), Toast.LENGTH_LONG).show()
             }
         })
     }
 
     override fun onBackPressed() {
         AlertDialog.Builder(this)
-            .setTitle("SALIR Y CERRAR SESION?")
+            .setTitle(getString(R.string.salirCerrarSesion))
             .setPositiveButton(getString(R.string.aceptar)) { view, _ ->
                 ActualUser.actualUser = Persona()
                 ActualUser.modificando = false
+                ActualUser.rolAdmin = false
                 super.onBackPressed()
                 view.dismiss()
             }

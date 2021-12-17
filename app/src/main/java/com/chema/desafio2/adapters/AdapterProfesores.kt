@@ -47,23 +47,18 @@ class AdapterProfesores (
 
         //MODIFICAR
         holder.itemView.setOnClickListener {
-            if(ActualUser.modificandoAula == true){
-                profesorSelec?.text = profesores[position].Nombre
-            }else{
-                mod(profesores[position])
-            }
+            profesorSelec?.text = profesores[position].Nombre
+
 
         }
 
         holder.itemView.setOnLongClickListener(View.OnLongClickListener {
-            AlertDialog.Builder(context).setTitle(R.string.eliminarperfil)
-                .setPositiveButton(R.string.aceptar) { view, _ ->
-                    //elimina tarea
-                    check_delete_profesor(profesores[position])
-                    profesores.remove(profesores[position])
-                    notifyDataSetChanged()
+            AlertDialog.Builder(context).setTitle("Opciones")
+                .setPositiveButton("Modificar") { view, _ ->
+                    mod(profesores[position])
                     view.dismiss()
-                }.setNegativeButton(R.string.cancelar) { view, _ ->//cancela
+                }.setNegativeButton("Eliminar") { view, _ ->//cancela
+                    comprueba_delete(profesores[position])
                     view.dismiss()
                 }.create().show()
             false
@@ -83,6 +78,19 @@ class AdapterProfesores (
         context.startActivity(intent)
     }
 
+    fun comprueba_delete(persona: Persona){
+        AlertDialog.Builder(context).setTitle(R.string.eliminarperfil)
+            .setPositiveButton(R.string.aceptar) { view, _ ->
+
+                check_delete_profesor(persona)
+                profesores.remove(persona)
+                notifyDataSetChanged()
+                view.dismiss()
+            }.setNegativeButton(R.string.cancelar) { view, _ ->//cancela
+
+                view.dismiss()
+            }.create().show()
+    }
     fun check_delete_profesor(persona: Persona){
 
         val request = ServiceBuilder.buildService(PersonaApi::class.java)

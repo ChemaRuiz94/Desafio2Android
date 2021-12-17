@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity">
+    tools:context=".SignUpActivity"
+    android:background="@color/green_bg">
 
     <TextView
         android:id="@+id/textView3"
@@ -16,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintVertical_bias="0.058"
+        style="@style/MyText"/>
 
     <EditText
         android:id="@+id/ed_txt_userName_signUp"
@@ -30,7 +32,8 @@
         app:layout_constraintHorizontal_bias="0.409"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.103" />
+        app:layout_constraintVertical_bias="0.103"
+        style="@style/MyEditText"/>
 
     <TextView
         android:id="@+id/textView4"
@@ -42,7 +45,8 @@
         app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22" />
+        app:layout_constraintVertical_bias="0.22"
+        style="@style/MyText"/>
 
     <EditText
         android:id="@+id/ed_txt_pwd_signUp"
@@ -51,6 +55,7 @@
         android:ems="10"
         android:hint="@string/pwd"
         android:inputType="textPassword"
+        style="@style/MyEditText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.384"
@@ -66,6 +71,7 @@
         android:ems="10"
         android:hint="@string/dni"
         android:inputType="textPersonName"
+        style="@style/MyEditText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.354"
@@ -83,7 +89,8 @@
         app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.403" />
+        app:layout_constraintVertical_bias="0.403"
+        style="@style/MyText"/>
 
     <EditText
         android:id="@+id/ed_txt_telefono_signUp"
@@ -92,6 +99,7 @@
         android:ems="10"
         android:hint="@string/telefono"
         android:inputType="phone"
+        style="@style/MyEditText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.3"
@@ -110,7 +118,8 @@
         app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintVertical_bias="0.61"
+        style="@style/MyText"/>
 
     <Button
         android:id="@+id/btn_confirmar_signUp"
@@ -122,5 +131,6 @@
         app:layout_constraintHorizontal_bias="0.408"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.817" />
+        app:layout_constraintVertical_bias="0.817"
+        style="@style/MyButtons"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

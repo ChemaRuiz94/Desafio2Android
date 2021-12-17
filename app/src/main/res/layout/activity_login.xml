@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@color/green_bg">
 
     <TextView
         android:id="@+id/textView"
@@ -16,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.207" />
+        app:layout_constraintVertical_bias="0.207"
+        style="@style/MyText"/>
 
     <EditText
         android:id="@+id/ed_txt_usuario_login"
@@ -30,12 +32,14 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.269" />
+        app:layout_constraintVertical_bias="0.269"
+        style="@style/MyEditText"/>
 
     <EditText
         android:id="@+id/ed_txt_pwd_login"
         android:layout_width="279dp"
         android:layout_height="67dp"
+        style="@style/MyEditText"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,7 +58,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.661" />
+        app:layout_constraintVertical_bias="0.661"
+        style="@style/MyButtons"/>
 
     <Button
         android:id="@+id/btn_signup"
@@ -66,7 +71,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.79" />
+        app:layout_constraintVertical_bias="0.79"
+        style="@style/MyButtons"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -78,6 +84,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.424" />
+        app:layout_constraintVertical_bias="0.424"
+        style="@style/MyText"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

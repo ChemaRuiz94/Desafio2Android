@@ -50,6 +50,20 @@ class Conexion:
             # print("Ocurrió un error al insertar: clave duplicada.", e)
             return -1
 
+    def insertarAula(self, idA, nombre, nombreProf, desc):
+        """Insertar una aula en la tabla Aulas."""
+        try:
+            self.conectar()
+            cursor =  self._conexion.cursor()
+            consulta = "INSERT INTO aulas(IdAula, Nombre, NombreProfesor, Descripcion) VALUES (%s, %s, %s, %s)"
+            cursor.execute(consulta, (idA, nombre, nombreProf, desc))
+            self._conexion.commit()
+            self.cerrarConexion()
+            return 0
+        except (pymysql.err.IntegrityError) as e:
+            # print("Ocurrió un error al insertar: clave duplicada.", e)
+            return -1
+
     def insertarNewRol(self, nombre):
         """Insertar el rol profesor en la tabla rolesasignados."""
         try:
@@ -175,6 +189,20 @@ class Conexion:
             return -1
 
 
+    ###########################################################
+    def modificarAula(self, idA, nombre, nombreProf, desc):
+        try:
+            self.conectar()
+            cursor =  self._conexion.cursor()
+            consulta = "UPDATE aulas SET IdAula = %s, Nombre = %s, NombreProfesor = %s, Descripcion = %s  WHERE IdAula = %s;"
+            cursor.execute(consulta, (idA, nombre, nombreProf, desc, idA))
+            self._conexion.commit()
+            self.cerrarConexion()
+            return cursor.rowcount
+        except (pymysql.err.IntegrityError) as e:
+            # print("Ocurrió un error al insertar: clave duplicada.", e)
+            return -1
+
 ############################################################
     def borrarNombre(self, nombreBorrar):
         try:
@@ -204,4 +232,19 @@ class Conexion:
                 return r
         except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
             return []
+
+    ##############################################################
+    def borrarAula(self, idAulaBorrar):
+        try:
+            self.conectar()
+            with self._conexion.cursor() as cursor:
+                consulta = "DELETE FROM aulas WHERE IdAula = %s;"
+                cursor.execute(consulta, (idAulaBorrar))
+
+                # No olvidemos hacer commit cuando hacemos un cambio a la BD
+                self._conexion.commit()
+                self.cerrarConexion()
+                return cursor.rowcount #Registros afectados en el borrado.
+        except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
+            return -1
 

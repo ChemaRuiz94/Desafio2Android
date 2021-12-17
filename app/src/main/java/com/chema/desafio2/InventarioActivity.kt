@@ -34,6 +34,8 @@ class InventarioActivity : AppCompatActivity() {
 
     lateinit var btn_aulas: Button
     lateinit var btn_prof: Button
+    lateinit var btn_new_prof: Button
+    lateinit var btn_new_aula: Button
     lateinit var flt_btn_preferences: FloatingActionButton
 
     var aulas: ArrayList<Aula> = ArrayList<Aula>()
@@ -48,16 +50,22 @@ class InventarioActivity : AppCompatActivity() {
 
         btn_aulas = findViewById(R.id.btn_gestion_aulas)
         btn_prof = findViewById(R.id.btn_gestion_profesores)
+        btn_new_prof = findViewById(R.id.btn_add_profesor)
+        btn_new_aula = findViewById(R.id.btn_add_aula)
         flt_btn_preferences = findViewById(R.id.floatingActionButton_preferencias_inventario)
 
         val act_user: Persona = ActualUser.actualUser
+
         usuario = act_user
         if(usuario != null){
             txt_nom.setText(usuario!!.Nombre)
             check_rol()
         }
 
-
+        btn_new_aula.setOnClickListener{
+            val intent = Intent(contexto,NewAulaActivity::class.java)
+            startActivity(intent)
+        }
 
         btn_aulas.setOnClickListener{
             val fragment1 = MyFragmentsAulas()
@@ -116,7 +124,6 @@ class InventarioActivity : AppCompatActivity() {
             .setNegativeButton("Eliminar perfil de Usuario") { view, _ ->
 
                 //ELIMINAR
-
 
                 //CERRAR SESION
                 check_delete()

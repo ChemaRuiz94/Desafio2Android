@@ -9,5 +9,8 @@ data class Aula(@SerializedName("IdAula")
                 @SerializedName("Nombre")
                 val Nombre: String? = null,
 
+                @SerializedName("NombreProfesor")
+                val NombreProfesor: String? = null,
+
                 @SerializedName("Descripcion")
                 val Descripcion: String? = null) : Serializable {}

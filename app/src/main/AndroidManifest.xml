@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".NewAulaActivity"
+            android:exported="true" />
+        <activity
             android:name=".InventarioActivity"
             android:exported="true" />
         <activity

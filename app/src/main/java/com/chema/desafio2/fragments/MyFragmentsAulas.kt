@@ -33,20 +33,14 @@ class MyFragmentsAulas():Fragment() {
         val view = inflater?.inflate(R.layout.fragment_aula,container,false)
         contexto = view.context
 
-        //recyclerView = findViewById<RecyclerView>(R.id.RVListaPersonas)
-        //val linearLayoutManager = LinearLayoutManager(applicationContext)
-        //recyclerView.layoutManager = linearLayoutManager
-
         return view
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //val bun = requireActivity().intent.extras!!
 
         getAulas(view)
-        //cargarRV(view)
     }
 
 
@@ -63,11 +57,10 @@ class MyFragmentsAulas():Fragment() {
                 if (response.isSuccessful){
 
                     for (post in response.body()!!) {
-                        aulas.add(Aula(post.IdAula,post.Nombre,post.Descripcion))
+                        aulas.add(Aula(post.IdAula,post.Nombre,post.NombreProfesor,post.Descripcion))
                         Log.d("Che",post.Nombre.toString())
                     }
                     cargarRV(view)
-                    //Toast.makeText(context,"Aulas traidas correctamente",Toast.LENGTH_SHORT).show()
                 }else{
 
                     Toast.makeText(context,"Fallo de al traer las aulas",Toast.LENGTH_SHORT).show()

@@ -13,7 +13,7 @@ api = Api(app)
 @app.route('/')
 def hello():
     return 'Inventario'
-
+#------------------------------------------------------------------------------    
 @app.route("/personas", methods=['GET']) 
 def getPersonas(): 
     listaPersonas = conex.seleccionarTodos()
@@ -82,6 +82,23 @@ def addPersona():
     return resp 
 
 
+#------------------------------------------------------------------------------
+@app.route("/addaula", methods=["POST"])
+def addAula():
+    data = request.json
+    
+    print(data) #Desde Android nos llega en formato diccionario.
+    if (conex.insertarAula(data['IdAula'],data['Nombre'],data['NombreProfesor'],data['Descripcion'])==0):
+        respuesta = {'message': 'Ok.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'Error'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    
+    print(resp)
+    return resp 
     
     
 
@@ -141,7 +158,23 @@ def delPersona(nombre):
     print(resp)
     return resp 
 
+#------------------------------------------------------------------------------    
+@app.route("/borraraula/<id>", methods=["DELETE"])
+def delAula(id):
+    
+    if (conex.borrarAula(id)>0):
+        respuesta = {'message': 'Ok.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'IdAula' + str(id) + ' no encontrado.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    print(respuesta)
+    print(resp)
+    return resp 
 
+#------------------------------------------------------------------------------    
 @app.route("/modificar", methods=["PUT"])
 def modPersona():
     data = request.json
@@ -162,7 +195,22 @@ def modPersona():
     print(resp)
     return resp 
 
-
+#------------------------------------------------------------------------------    
+@app.route("/modificarAula", methods=["PUT"])
+def modAula():
+    data = request.json
+    print(data) #Desde Android nos llega en formato diccionario.
+    if (conex.modificarAula(data['IdAula'],data['Nombre'],data['NombreProfesor'],data['Descripcion']) > 0):
+        respuesta = {'message': 'Ok.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 200
+    else:
+        respuesta = {'message': 'Error al modificar.'}
+        resp = jsonify(respuesta)
+        resp.status_code = 400
+    
+    print(resp)
+    return resp 
 
 #------------------------------------------------------------------------------
 @app.route("/rolUsuario", methods=["POST"])
